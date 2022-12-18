@@ -246,10 +246,12 @@ URL=https://github.com/home-assistant/operating-system/releases/download/${BRANC
 fi
 sleep 2
 msg_ok "${CL}${BL}${URL}${CL}"
-wget -q --show-progress $URL
+#wget -q --show-progress $URL
+echo -e "Generated URL: ${URL}"
 echo -en "\e[1A\e[0K"
 #FILE=$(basename $URL)
 FILE=haos_ova-9.4.qcow2.xz
+echo -e "Local file: ${FILE}"
 
 msg_ok "Downloaded ${CL}${BL}haos_ova-${BRANCH}.qcow2.xz${CL}"
 msg_info "Extracting KVM Disk Image"
