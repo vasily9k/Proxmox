@@ -250,7 +250,7 @@ msg_ok "${CL}${BL}${URL}${CL}"
 echo -e "Generated URL: ${URL}"
 echo -en "\e[1A\e[0K"
 #FILE=$(basename $URL)
-FILE=haos_ova-9.4.qcow2.xz
+FILE=/root/haos_ova-9.4.qcow2.xz
 echo -e "Local file: ${FILE}"
 
 msg_ok "Downloaded ${CL}${BL}haos_ova-${BRANCH}.qcow2.xz${CL}"
