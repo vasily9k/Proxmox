@@ -247,6 +247,7 @@ URL=https://github.com/home-assistant/operating-system/releases/download/${BRANC
 fi
 sleep 2
 msg_ok "${CL}${BL}${URL}${CL}"
+
 #wget -q --show-progress $URL
 echo -e "Generated URL: ${URL}"
 echo -en "\e[1A\e[0K"
@@ -254,9 +255,20 @@ echo -en "\e[1A\e[0K"
 FILE=/root/haos_ova-9.4.qcow2.xz
 echo -e "Local file: ${FILE}"
 
-msg_ok "Downloaded ${CL}${BL}haos_ova-${BRANCH}.qcow2.xz${CL}"
-msg_info "Extracting KVM Disk Image"
-unxz $FILE
+if [ -f ${FILE%.*} ]; then
+  echo "${FILE%.*} — уже есть. Ничего не делаем"
+else
+  if [ -f $FILE ]; then
+    msg_info "Extracting KVM Disk Image"
+    unxz $FILE
+  else
+    msg_error "File ${BL}/root/haos_ova-9.4.qcow2.xz${CL} or ${BL}/root/haos_ova-9.4.qcow2${CL} is not exist"
+      exit
+  fi
+fi
+
+#msg_ok "Downloaded ${CL}${BL}haos_ova-${BRANCH}.qcow2.xz${CL}"
+
 STORAGE_TYPE=$(pvesm status -storage $STORAGE | awk 'NR>1 {print $2}')
 case $STORAGE_TYPE in
   nfs|dir)
@@ -290,7 +302,8 @@ qm set $VMID \
   -boot order=scsi0 \
   -description "# Home Assistant OS
 ### https://github.com/tteck/Proxmox
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D7EP4GF)" >/dev/null
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D7EP4GF)
+Thank you!" >/dev/null
 msg_ok "Created HAOS VM ${CL}${BL}(${HN})"
 if [ "$START_VM" == "yes" ]; then
 msg_info "Starting Home Assistant OS VM"
