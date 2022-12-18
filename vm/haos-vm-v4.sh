@@ -96,7 +96,8 @@ function default_settings() {
         FORMAT=",efitype=4m"
         MACHINE=""
         echo -e "${DGN}Using Hostname: ${BGN}haos${STABLE}${CL}"
-        HN=haos${STABLE}
+#        HN=haos${STABLE}
+        HN=haos1
         echo -e "${DGN}Allocated Cores: ${BGN}2${CL}"
         CORE_COUNT="2"
         echo -e "${DGN}Allocated RAM: ${BGN}4096${CL}"
